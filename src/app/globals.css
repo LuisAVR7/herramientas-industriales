@@ -1,0 +1,35 @@
+@import "tailwindcss";
+
+@theme {
+  /* Naranja industrial — Safety Orange (señalización ATEX / industrial) */
+  --color-brand-50: #FFF4EC;
+  --color-brand-100: #FFE0C7;
+  --color-brand-200: #FFC199;
+  --color-brand-300: #FFA26B;
+  --color-brand-400: #FF833D;
+  --color-brand-500: #E85D04;
+  --color-brand-600: #D14A00;
+  --color-brand-700: #A83900;
+  --color-brand-800: #7F2B00;
+  --color-brand-900: #562000;
+
+  /* Grises industriales — "ink" (fondos, textos, bordes) */
+  --color-ink-50: #F5F5F6;
+  --color-ink-100: #E7E7E9;
+  --color-ink-200: #CCCCCF;
+  --color-ink-300: #A8A8AD;
+  --color-ink-400: #7A7A80;
+  --color-ink-500: #55555A;
+  --color-ink-600: #3D3D42;
+  --color-ink-700: #2C2C31;
+  --color-ink-800: #1E1E22;
+  --color-ink-900: #121215;
+}
+
+html,
+body {
+  background: var(--color-ink-900);
+  color: var(--color-ink-100);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
