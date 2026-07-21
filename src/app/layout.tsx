@@ -46,8 +46,49 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
 
         <footer className="border-t border-ink-700 bg-ink-800 mt-16">
-          <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-ink-400 text-center">
-            © {new Date().getFullYear()} Herramientas Industriales — Paraguay
+          <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-ink-400 flex flex-col md:flex-row justify-between items-center gap-4">
+            <span>© {new Date().getFullYear()} Herramientas Industriales — Paraguay</span>
+            <div className="flex items-center gap-3">
+              <span>Desarrollado por</span>
+              <a
+                href="https://eleve11.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="bg-[#F0EBD4] rounded-sm px-3 py-2 hover:brightness-95 transition"
+                aria-label="Eleven — Creativity and management"
+              >
+                <svg
+                  width="90"
+                  height="34"
+                  viewBox="0 0 220 78"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <text
+                    x="0"
+                    y="46"
+                    fontFamily="Arial, Helvetica, sans-serif"
+                    fontWeight="900"
+                    fontSize="48"
+                    fill="#121215"
+                  >
+                    eleve
+                    <tspan fill="#E85D04" fontStyle="italic">
+                      11
+                    </tspan>
+                  </text>
+                  <text
+                    x="2"
+                    y="70"
+                    fontFamily="Arial, Helvetica, sans-serif"
+                    fontWeight="500"
+                    fontSize="12"
+                    fill="#121215"
+                  >
+                    Creativity and management
+                  </text>
+                </svg>
+              </a>
+            </div>
           </div>
         </footer>
       </body>

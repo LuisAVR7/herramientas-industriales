@@ -66,7 +66,7 @@ export default function Home() {
             <div className="flex items-center gap-3 mb-4">
               <div className="w-2 h-2 rounded-full bg-brand-500" />
               <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                Forestal
+                Industria Verde
               </span>
             </div>
             <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
