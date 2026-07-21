@@ -33,8 +33,8 @@ export default function RootLayout({
               <Link href="/blog" className="hover:text-brand-400 transition">
                 Blog
               </Link>
-              <Link href="/sobre-el-autor" className="hover:text-brand-400 transition">
-                Sobre el autor
+              <Link href="/sobre-este-blog" className="hover:text-brand-400 transition">
+                Sobre este blog
               </Link>
               <Link href="/contacto" className="hover:text-brand-400 transition">
                 Contacto

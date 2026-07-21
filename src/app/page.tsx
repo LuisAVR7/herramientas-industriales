@@ -27,10 +27,10 @@ export default function Home() {
                 Ver artículos
               </Link>
               <Link
-                href="/sobre-el-autor"
+                href="/sobre-este-blog"
                 className="border border-ink-600 hover:border-brand-500 text-ink-100 px-6 py-3 rounded-sm transition"
               >
-                Sobre el autor
+                Sobre este blog
               </Link>
             </div>
           </div>
