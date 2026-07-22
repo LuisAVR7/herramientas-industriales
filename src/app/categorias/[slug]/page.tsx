@@ -60,13 +60,13 @@ export default async function CategoryPage({ params }: Props) {
             className="block border border-ink-700 rounded-sm overflow-hidden hover:border-brand-500 transition group"
           >
             {article.imagen && (
-              <div className="relative w-full aspect-[1200/630] bg-ink-800">
+              <div className="relative w-full h-40 md:h-48 bg-ink-800">
                 <Image
                   src={article.imagen}
                   alt={article.imagenAlt || article.title}
                   fill
                   sizes="(max-width: 768px) 100vw, 800px"
-                  className="object-cover"
+                  className="object-contain"
                 />
               </div>
             )}
