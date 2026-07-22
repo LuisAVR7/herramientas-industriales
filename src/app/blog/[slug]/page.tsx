@@ -144,13 +144,13 @@ export default async function ArticlePage({ params }: Props) {
       </p>
 
       {article.imagen && (
-        <div className="relative w-full aspect-[1200/630] rounded-sm overflow-hidden mb-12 bg-ink-800">
+        <div className="relative w-full h-48 md:h-60 rounded-sm overflow-hidden mb-12 bg-ink-800">
           <Image
             src={article.imagen}
             alt={article.imagenAlt || article.title}
             fill
             sizes="(max-width: 768px) 100vw, 768px"
-            className="object-cover"
+            className="object-contain"
             priority
           />
         </div>
