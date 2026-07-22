@@ -10,6 +10,8 @@ export type ArticleFrontmatter = {
   categoria: string;
   descripcion: string;
   fecha: string;
+  imagen?: string;
+  imagenAlt?: string;
 };
 
 export type Article = ArticleFrontmatter & {

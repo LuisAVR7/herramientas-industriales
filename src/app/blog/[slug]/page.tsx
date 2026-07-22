@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
+import Image from "next/image";
 import type { MDXComponents } from "mdx/types";
 import { getAllSlugs, getArticleBySlug } from "@/lib/articles";
 
@@ -17,9 +18,37 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
   if (!article) return {};
+
+  const url = `https://herramientas-industriales.com.py/blog/${article.slug}`;
+
   return {
     title: article.title,
     description: article.descripcion,
+    openGraph: {
+      title: article.title,
+      description: article.descripcion,
+      url,
+      type: "article",
+      publishedTime: article.fecha,
+      images: article.imagen
+        ? [
+            {
+              url: `https://herramientas-industriales.com.py${article.imagen}`,
+              width: 1200,
+              height: 630,
+              alt: article.imagenAlt || article.title,
+            },
+          ]
+        : [],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: article.title,
+      description: article.descripcion,
+      images: article.imagen
+        ? [`https://herramientas-industriales.com.py${article.imagen}`]
+        : [],
+    },
   };
 }
 
@@ -113,6 +142,19 @@ export default async function ArticlePage({ params }: Props) {
       <p className="text-lg text-ink-300 leading-relaxed mb-12">
         {article.descripcion}
       </p>
+
+      {article.imagen && (
+        <div className="relative w-full aspect-[1200/630] rounded-sm overflow-hidden mb-12 bg-ink-800">
+          <Image
+            src={article.imagen}
+            alt={article.imagenAlt || article.title}
+            fill
+            sizes="(max-width: 768px) 100vw, 768px"
+            className="object-cover"
+            priority
+          />
+        </div>
+      )}
 
       <div className="border-t border-ink-800 pt-8">
         <MDXRemote source={article.content} components={mdxComponents} />

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import { getAllCategorySlugs, getCategoryBySlug } from "@/lib/articles";
 
 export const dynamic = "force-static";
@@ -56,24 +57,37 @@ export default async function CategoryPage({ params }: Props) {
           <Link
             key={article.slug}
             href={`/blog/${article.slug}` as never}
-            className="block border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group"
+            className="block border border-ink-700 rounded-sm overflow-hidden hover:border-brand-500 transition group"
           >
-            <div className="flex items-center gap-3 mb-3 flex-wrap">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs text-ink-500">
-                {new Date(article.fecha).toLocaleDateString("es-PY", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                })}
-              </span>
+            {article.imagen && (
+              <div className="relative w-full aspect-[1200/630] bg-ink-800">
+                <Image
+                  src={article.imagen}
+                  alt={article.imagenAlt || article.title}
+                  fill
+                  sizes="(max-width: 768px) 100vw, 800px"
+                  className="object-cover"
+                />
+              </div>
+            )}
+            <div className="p-8">
+              <div className="flex items-center gap-3 mb-3 flex-wrap">
+                <div className="w-2 h-2 rounded-full bg-brand-500" />
+                <span className="text-xs text-ink-500">
+                  {new Date(article.fecha).toLocaleDateString("es-PY", {
+                    year: "numeric",
+                    month: "long",
+                    day: "numeric",
+                  })}
+                </span>
+              </div>
+              <h2 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
+                {article.title}
+              </h2>
+              <p className="text-ink-300 text-sm leading-relaxed">
+                {article.descripcion}
+              </p>
             </div>
-            <h2 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              {article.title}
-            </h2>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              {article.descripcion}
-            </p>
           </Link>
         ))}
       </div>
