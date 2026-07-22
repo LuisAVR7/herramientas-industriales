@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
+import ContactoForm from "./ContactoForm";
 
 export const metadata: Metadata = {
   title: "Contacto",
   description:
-    "Consultas técnicas, sugerencias de comparativas o propuestas de colaboración con marcas.",
+    "Consultas técnicas, sugerencias de comparativas o propuestas de colaboración con marcas del rubro industrial.",
 };
 
 export default function Contacto() {
@@ -13,18 +14,15 @@ export default function Contacto() {
         Contacto
       </span>
       <h1 className="text-3xl md:text-5xl font-bold tracking-tight text-ink-50 leading-tight">
-        Escribime
+        Escribinos
       </h1>
       <p className="mt-4 text-ink-400 max-w-xl">
         Consultas técnicas, sugerencias de comparativas o propuestas de
-        colaboración con marcas del rubro.
+        colaboración con marcas del rubro industrial.
       </p>
 
-      <div className="mt-16 border border-dashed border-ink-700 rounded-sm p-12 text-center">
-        <p className="text-ink-300">
-          Formulario de contacto pendiente — se activa cuando el dominio esté
-          comprado y el correo definido.
-        </p>
+      <div className="mt-12">
+        <ContactoForm />
       </div>
     </div>
   );
