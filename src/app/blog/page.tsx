@@ -42,7 +42,7 @@ export default function Blog() {
               className="block border border-ink-700 rounded-sm overflow-hidden hover:border-brand-500 transition group"
             >
               {article.imagen && (
-                <div className="relative w-full h-40 md:h-48 bg-ink-800">
+                <div className="relative w-full h-40 md:h-48 bg-ink-900">
                   <Image
                     src={article.imagen}
                     alt={article.imagenAlt || article.title}

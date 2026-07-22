@@ -144,7 +144,7 @@ export default async function ArticlePage({ params }: Props) {
       </p>
 
       {article.imagen && (
-        <div className="relative w-full h-48 md:h-60 rounded-sm overflow-hidden mb-12 bg-ink-800">
+        <div className="relative w-full h-48 md:h-60 rounded-sm overflow-hidden mb-12 bg-ink-900">
           <Image
             src={article.imagen}
             alt={article.imagenAlt || article.title}
