@@ -6,6 +6,7 @@ export type ArticleFrontmatter = {
   categoria: string;
   descripcion: string;
   fecha: string;
+  tipo?: "pilar" | "satelite";
   imagen?: string;
   imagenAlt?: string;
 };
@@ -32,7 +33,8 @@ export function slugify(text: string): string {
 }
 
 export function getAllArticles(): Article[] {
-  return ALL_ARTICLES;
+  // Orden ascendente por fecha (más antiguo primero — "orden de creación").
+  return [...ALL_ARTICLES].sort((a, b) => a.fecha.localeCompare(b.fecha));
 }
 
 export function getArticleBySlug(slug: string): Article | null {
@@ -55,7 +57,13 @@ export function getAllCategories(): Category[] {
     .map(([name, articles]) => ({
       name,
       slug: slugify(name),
-      articles,
+      articles: articles.sort((a, b) => {
+        // Pilar primero.
+        if (a.tipo === "pilar" && b.tipo !== "pilar") return -1;
+        if (a.tipo !== "pilar" && b.tipo === "pilar") return 1;
+        // Mismo tipo: orden ascendente por fecha (creación).
+        return a.fecha.localeCompare(b.fecha);
+      }),
     }))
     .sort((a, b) => a.name.localeCompare(b.name));
 }
