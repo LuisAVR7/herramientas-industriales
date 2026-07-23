@@ -35,7 +35,7 @@ export default function Blog() {
         </div>
       ) : (
         <div className="mt-16 space-y-8">
-          {articles.map((article) => (
+          {articles.map((article, index) => (
             <Link
               key={article.slug}
               href={`/blog/${article.slug}` as never}
@@ -49,6 +49,7 @@ export default function Blog() {
                     fill
                     sizes="(max-width: 768px) 100vw, 800px"
                     className="object-contain"
+                    priority={index === 0}
                   />
                 </div>
               )}
