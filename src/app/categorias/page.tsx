@@ -36,7 +36,7 @@ export default function CategoriasPage() {
           {categorias.map((cat) => (
             <Link
               key={cat.slug}
-              href={`/categoria/${cat.slug}` as never}
+              href={`/categorias/${cat.slug}` as never}
               className="block border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group"
             >
               <div className="flex items-center gap-3 mb-4">

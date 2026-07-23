@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "generate-articles": "node scripts/generate-articles-index.mjs",
+    "predev": "npm run generate-articles",
+    "prebuild": "npm run generate-articles",
     "dev": "next dev",
     "build": "next build",
     "start": "next start"
-  },
+},
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",

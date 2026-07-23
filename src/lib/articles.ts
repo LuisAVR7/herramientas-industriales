@@ -1,8 +1,4 @@
-import fs from "fs";
-import path from "path";
-import matter from "gray-matter";
-
-const ARTICLES_DIR = path.join(process.cwd(), "content", "blog");
+import articlesData from "./articles-generated.json";
 
 export type ArticleFrontmatter = {
   title: string;
@@ -24,6 +20,8 @@ export type Category = {
   articles: Article[];
 };
 
+const ALL_ARTICLES = articlesData as Article[];
+
 export function slugify(text: string): string {
   return text
     .toLowerCase()
@@ -34,48 +32,21 @@ export function slugify(text: string): string {
 }
 
 export function getAllArticles(): Article[] {
-  if (!fs.existsSync(ARTICLES_DIR)) return [];
-
-  const files = fs.readdirSync(ARTICLES_DIR).filter((f) => f.endsWith(".mdx"));
-
-  return files
-    .map((file) => {
-      const fullPath = path.join(ARTICLES_DIR, file);
-      const raw = fs.readFileSync(fullPath, "utf8");
-      const { data, content } = matter(raw);
-      return {
-        ...(data as ArticleFrontmatter),
-        content,
-      };
-    })
-    .sort((a, b) => (a.fecha < b.fecha ? 1 : -1));
+  return ALL_ARTICLES;
 }
 
 export function getArticleBySlug(slug: string): Article | null {
-  const fullPath = path.join(ARTICLES_DIR, `${slug}.mdx`);
-  if (!fs.existsSync(fullPath)) return null;
-
-  const raw = fs.readFileSync(fullPath, "utf8");
-  const { data, content } = matter(raw);
-  return {
-    ...(data as ArticleFrontmatter),
-    content,
-  };
+  return ALL_ARTICLES.find((a) => a.slug === slug) || null;
 }
 
 export function getAllSlugs(): string[] {
-  if (!fs.existsSync(ARTICLES_DIR)) return [];
-  return fs
-    .readdirSync(ARTICLES_DIR)
-    .filter((f) => f.endsWith(".mdx"))
-    .map((f) => f.replace(/\.mdx$/, ""));
+  return ALL_ARTICLES.map((a) => a.slug);
 }
 
 export function getAllCategories(): Category[] {
-  const articles = getAllArticles();
   const map = new Map<string, Article[]>();
 
-  for (const article of articles) {
+  for (const article of ALL_ARTICLES) {
     const existing = map.get(article.categoria) || [];
     map.set(article.categoria, [...existing, article]);
   }
