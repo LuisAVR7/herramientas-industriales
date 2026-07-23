@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import type { MDXComponents } from "mdx/types";
 import { getAllSlugs, getArticleBySlug } from "@/lib/articles";
+import ShareButtons from "./ShareButtons";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -159,6 +160,11 @@ export default async function ArticlePage({ params }: Props) {
       <div className="border-t border-ink-800 pt-8">
         <MDXRemote source={article.content} components={mdxComponents} />
       </div>
+
+      <ShareButtons
+        title={article.title}
+        url={`https://herramientas-industriales.com.py/blog/${article.slug}`}
+      />
     </article>
   );
 }
