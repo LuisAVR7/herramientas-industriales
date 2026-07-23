@@ -4,15 +4,15 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllCategorySlugs, getCategoryBySlug } from "@/lib/articles";
 
-export const dynamic = "force-static";
-
-type Props = {
-  params: Promise<{ slug: string }>;
-};
+export const dynamicParams = true;
 
 export async function generateStaticParams() {
   return getAllCategorySlugs().map((slug) => ({ slug }));
 }
+
+type Props = {
+  params: Promise<{ slug: string }>;
+};
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
