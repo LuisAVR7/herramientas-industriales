@@ -44,7 +44,7 @@ export default function Home() {
         </h2>
         <p className="mt-2 text-ink-400">Los rubros que cubre el blog.</p>
 
-        <div className="mt-10 grid gap-6 md:grid-cols-2">
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
             <div className="flex items-center gap-3 mb-4">
               <div className="w-2 h-2 rounded-full bg-brand-500" />
@@ -76,6 +76,23 @@ export default function Home() {
               Motosierras, hachas, herramientas de tala y limpieza para uso
               profesional. Comparativas de equipamiento europeo y estándar
               internacional aplicado al mercado paraguayo.
+            </p>
+          </article>
+
+          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-2 h-2 rounded-full bg-brand-500" />
+              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
+                Llaves dinamométricas
+              </span>
+            </div>
+            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
+              Torque preciso
+            </h3>
+            <p className="text-ink-300 text-sm leading-relaxed">
+              Llaves de clic, digitales, eléctricas y multiplicadores de torque
+              para aplicaciones críticas de industria pesada, automotriz y
+              estructural. Bahco, Norbar y otras marcas del segmento.
             </p>
           </article>
         </div>
