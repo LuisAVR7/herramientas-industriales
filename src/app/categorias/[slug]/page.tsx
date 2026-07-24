@@ -73,7 +73,7 @@ export default async function CategoryPage({ params }: Props) {
               <div className="flex items-center gap-3 mb-3 flex-wrap">
                 <div className="w-2 h-2 rounded-full bg-brand-500" />
                 <span className="text-xs text-ink-500">
-                  {new Date(article.fecha).toLocaleDateString("es-PY", {
+                  {new Date(article.fecha + "T00:00:00").toLocaleDateString("es-PY", {
                     year: "numeric",
                     month: "long",
                     day: "numeric",

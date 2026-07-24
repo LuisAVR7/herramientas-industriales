@@ -61,7 +61,7 @@ export default function Blog() {
                   </span>
                   <span className="text-xs text-ink-500">·</span>
                   <span className="text-xs text-ink-500">
-                    {new Date(article.fecha).toLocaleDateString("es-PY", {
+                    {new Date(article.fecha + "T00:00:00").toLocaleDateString("es-PY", {
                       year: "numeric",
                       month: "long",
                       day: "numeric",
