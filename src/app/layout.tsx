@@ -60,6 +60,13 @@ export default function RootLayout({
               >
                 Política de Privacidad
               </Link>
+              <span className="hidden md:inline text-ink-600">·</span>
+              <Link
+                href="/terminos-y-condiciones"
+                className="hover:text-brand-400 transition"
+              >
+                Términos y Condiciones
+              </Link>
             </div>
             <div className="flex items-center gap-3">
               <span>Desarrollado por</span>
