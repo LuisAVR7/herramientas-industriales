@@ -122,10 +122,7 @@ export default function TerminosYCondicionesPage() {
             </li>
           </ul>
           <p className="mt-4">
-            <strong>Política editorial de mención de marcas:</strong> el Sitio mantiene un criterio <strong>estrictamente independiente</strong>. No se mencionan marcas comerciales de terceros en el contenido editorial, salvo cuando exista un <strong>acuerdo publicitario formal</strong> entre el titular de la marca y el Sitio. Las marcas eventualmente mencionadas en contenidos históricos aparecen como referencias técnicas editoriales, sin relación comercial, patrocinio ni endoso.
-          </p>
-          <p className="mt-3">
-            Las marcas comerciales mencionadas son propiedad de sus respectivos titulares.
+            Las marcas comerciales mencionadas en el Sitio son propiedad de sus respectivos titulares y aparecen con fines editoriales, informativos y de referencia técnica, sin implicar patrocinio, endoso ni relación comercial (salvo indicación expresa en contrario).
           </p>
 
           <h3 className="text-lg font-semibold text-ink-100 mt-5 mb-2">
