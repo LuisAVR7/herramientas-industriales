@@ -4,6 +4,8 @@ import Link from "next/link";
 import Image from "next/image";
 import { getAllCategorySlugs, getCategoryBySlug } from "@/lib/articles";
 
+const SITE_URL = "https://www.herramientas-industriales.com.py";
+
 type Props = {
   params: Promise<{ slug: string }>;
 };
@@ -27,8 +29,39 @@ export default async function CategoryPage({ params }: Props) {
   const category = getCategoryBySlug(slug);
   if (!category) notFound();
 
+  // Schema.org: BreadcrumbList para la página de categoría.
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: `${SITE_URL}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Categorías",
+        item: `${SITE_URL}/categorias`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: category.name,
+        item: `${SITE_URL}/categorias/${category.slug}`,
+      },
+    ],
+  };
+
   return (
     <div className="max-w-4xl mx-auto px-6 py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
+      />
+
       <div className="mb-8">
         <Link
           href="/categorias"

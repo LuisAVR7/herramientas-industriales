@@ -4,9 +4,11 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import Link from "next/link";
 import Image from "next/image";
 import type { MDXComponents } from "mdx/types";
-import { getAllSlugs, getArticleBySlug } from "@/lib/articles";
+import { getAllSlugs, getArticleBySlug, slugify } from "@/lib/articles";
 import ShareButtons from "./ShareButtons";
 import RelatedArticles from "./RelatedArticles";
+
+const SITE_URL = "https://www.herramientas-industriales.com.py";
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -21,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getArticleBySlug(slug);
   if (!article) return {};
 
-  const url = `https://herramientas-industriales.com.py/blog/${article.slug}`;
+  const url = `${SITE_URL}/blog/${article.slug}`;
 
   return {
     title: article.title,
@@ -35,7 +37,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       images: article.imagen
         ? [
             {
-              url: `https://herramientas-industriales.com.py${article.imagen}`,
+              url: `${SITE_URL}${article.imagen}`,
               width: 1200,
               height: 630,
               alt: article.imagenAlt || article.title,
@@ -47,9 +49,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       card: "summary_large_image",
       title: article.title,
       description: article.descripcion,
-      images: article.imagen
-        ? [`https://herramientas-industriales.com.py${article.imagen}`]
-        : [],
+      images: article.imagen ? [`${SITE_URL}${article.imagen}`] : [],
     },
   };
 }
@@ -111,8 +111,78 @@ export default async function ArticlePage({ params }: Props) {
   const article = getArticleBySlug(slug);
   if (!article) notFound();
 
+  const articleUrl = `${SITE_URL}/blog/${article.slug}`;
+  const categorySlug = slugify(article.categoria);
+
+  // Schema.org: Article + BreadcrumbList por artículo.
+  const articleSchema = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: article.title,
+    description: article.descripcion,
+    datePublished: article.fecha,
+    dateModified: article.fecha,
+    inLanguage: "es-PY",
+    articleSection: article.categoria,
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": articleUrl,
+    },
+    author: {
+      "@type": "Organization",
+      name: "Herramientas Industriales",
+      url: `${SITE_URL}/`,
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "Herramientas Industriales",
+      url: `${SITE_URL}/`,
+    },
+    ...(article.imagen && {
+      image: [`${SITE_URL}${article.imagen}`],
+    }),
+  };
+
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Inicio",
+        item: `${SITE_URL}/`,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "Artículos",
+        item: `${SITE_URL}/blog`,
+      },
+      {
+        "@type": "ListItem",
+        position: 3,
+        name: article.categoria,
+        item: `${SITE_URL}/categorias/${categorySlug}`,
+      },
+      {
+        "@type": "ListItem",
+        position: 4,
+        name: article.title,
+        item: articleUrl,
+      },
+    ],
+  };
+
   return (
     <article className="max-w-3xl mx-auto px-6 py-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify([articleSchema, breadcrumbSchema]),
+        }}
+      />
+
       <div className="mb-8">
         <Link
           href="/blog"
@@ -164,10 +234,7 @@ export default async function ArticlePage({ params }: Props) {
 
       <RelatedArticles currentArticle={article} />
 
-      <ShareButtons
-        title={article.title}
-        url={`https://herramientas-industriales.com.py/blog/${article.slug}`}
-      />
+      <ShareButtons title={article.title} url={articleUrl} />
     </article>
   );
 }

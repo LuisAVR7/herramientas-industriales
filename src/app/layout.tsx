@@ -3,7 +3,10 @@ import Link from "next/link";
 import Image from "next/image";
 import "./globals.css";
 
+const SITE_URL = "https://www.herramientas-industriales.com.py";
+
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
   title: {
     default: "Herramientas Industriales — Comparativas y guías de compra",
     template: "%s | Herramientas Industriales",
@@ -11,6 +14,33 @@ export const metadata: Metadata = {
   description:
     "Blog especializado en herramientas industriales para el mercado paraguayo — comparativas, guías de compra y análisis técnico de equipos antichispa, forestales y más.",
 };
+
+// Schema.org JSON-LD global — Organization + WebSite.
+// Se renderiza en todas las páginas del sitio.
+const globalSchemas = [
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    name: "Herramientas Industriales",
+    alternateName: "Herramientas Industriales Paraguay",
+    url: `${SITE_URL}/`,
+    description:
+      "Blog especializado en herramientas industriales para el mercado paraguayo — comparativas, guías de compra y análisis técnico de equipos antichispa, forestales y más.",
+    areaServed: {
+      "@type": "Country",
+      name: "Paraguay",
+    },
+  },
+  {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: "Herramientas Industriales",
+    url: `${SITE_URL}/`,
+    inLanguage: "es-PY",
+    description:
+      "Comparativas técnicas, guías de compra y análisis de herramientas industriales para el mercado paraguayo.",
+  },
+];
 
 export default function RootLayout({
   children,
@@ -20,6 +50,11 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body className="antialiased flex min-h-screen flex-col">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemas) }}
+        />
+
         <header className="border-b border-ink-700 bg-ink-800/80 backdrop-blur sticky top-0 z-50">
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link
