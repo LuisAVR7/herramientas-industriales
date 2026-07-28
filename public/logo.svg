@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Herramientas Industriales">
+  <title>Herramientas Industriales</title>
+  <rect x="4" y="4" width="92" height="92" rx="10" fill="#0A0A0A"/>
+  <g fill="#E85D04">
+    <rect x="30" y="25" width="6" height="40"/>
+    <rect x="64" y="25" width="6" height="40"/>
+    <rect x="30" y="43" width="40" height="6"/>
+  </g>
+  <g fill="#FAFAFA">
+    <rect x="47" y="20" width="6" height="50"/>
+    <rect x="42" y="17" width="16" height="4"/>
+    <rect x="42" y="69" width="16" height="4"/>
+  </g>
+</svg>

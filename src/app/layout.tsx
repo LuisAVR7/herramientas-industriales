@@ -16,7 +16,6 @@ export const metadata: Metadata = {
 };
 
 // Schema.org JSON-LD global — Organization + WebSite.
-// Se renderiza en todas las páginas del sitio.
 const globalSchemas = [
   {
     "@context": "https://schema.org",
@@ -24,6 +23,7 @@ const globalSchemas = [
     name: "Herramientas Industriales",
     alternateName: "Herramientas Industriales Paraguay",
     url: `${SITE_URL}/`,
+    logo: `${SITE_URL}/icon-512.png`,
     description:
       "Blog especializado en herramientas industriales para el mercado paraguayo — comparativas, guías de compra y análisis técnico de equipos antichispa, forestales y más.",
     areaServed: {
@@ -42,6 +42,31 @@ const globalSchemas = [
   },
 ];
 
+// Logo SVG inline reutilizable (H naranja + I blanca sobre cuadro negro).
+function LogoIcon({ className }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 100 100"
+      xmlns="http://www.w3.org/2000/svg"
+      className={className}
+      role="img"
+      aria-label="Herramientas Industriales"
+    >
+      <rect x="4" y="4" width="92" height="92" rx="10" fill="#0A0A0A" />
+      <g fill="#E85D04">
+        <rect x="30" y="25" width="6" height="40" />
+        <rect x="64" y="25" width="6" height="40" />
+        <rect x="30" y="43" width="40" height="6" />
+      </g>
+      <g fill="#FAFAFA">
+        <rect x="47" y="20" width="6" height="50" />
+        <rect x="42" y="17" width="16" height="4" />
+        <rect x="42" y="69" width="16" height="4" />
+      </g>
+    </svg>
+  );
+}
+
 export default function RootLayout({
   children,
 }: {
@@ -59,11 +84,14 @@ export default function RootLayout({
           <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
             <Link
               href="/"
-              className="font-bold uppercase tracking-wider text-lg"
+              className="flex items-center gap-3 font-bold uppercase tracking-wider"
               aria-label="Herramientas Industriales — Inicio"
             >
-              <span className="text-ink-50">Herramientas</span>{" "}
-              <span className="text-brand-500">Industriales</span>
+              <LogoIcon className="w-10 h-10 flex-shrink-0" />
+              <span className="text-lg leading-none">
+                <span className="text-brand-500">Herramientas</span>{" "}
+                <span className="text-ink-50">Industriales</span>
+              </span>
             </Link>
             <nav className="hidden md:flex items-center gap-8 text-sm text-ink-200">
               <Link href="/blog" className="hover:text-brand-400 transition">
