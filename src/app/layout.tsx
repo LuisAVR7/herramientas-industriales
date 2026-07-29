@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
-import Script from "next/script";
 import "./globals.css";
 
 const SITE_URL = "https://www.herramientas-industriales.com.py";
@@ -76,15 +75,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body className="antialiased flex min-h-screen flex-col">
-        {/* Google AdSense — script principal para verificación y publicación de anuncios */}
-        <Script
+      <head>
+        {/* Google AdSense — script principal en head para verificación y publicación de anuncios */}
+        <script
           async
           src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${ADSENSE_CLIENT_ID}`}
           crossOrigin="anonymous"
-          strategy="afterInteractive"
         />
-
+      </head>
+      <body className="antialiased flex min-h-screen flex-col">
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(globalSchemas) }}
