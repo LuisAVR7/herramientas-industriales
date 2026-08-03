@@ -1,10 +1,12 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import "./globals.css";
 
 const SITE_URL = "https://www.herramientas-industriales.com.py";
 const ADSENSE_CLIENT_ID = "ca-pub-6682406524868253";
+const GA_MEASUREMENT_ID = "G-YV1BM7Y6Y3";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -161,6 +163,9 @@ export default function RootLayout({
             </div>
           </div>
         </footer>
+
+        {/* Google Analytics 4 — carga optimizada con @next/third-parties */}
+        <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />
       </body>
     </html>
   );
