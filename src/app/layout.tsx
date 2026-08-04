@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import NewsletterForm from "@/components/NewsletterForm";
 import "./globals.css";
 
 const SITE_URL = "https://www.herramientas-industriales.com.py";
@@ -124,6 +125,27 @@ export default function RootLayout({
         <main className="flex-1">{children}</main>
 
         <footer className="border-t border-ink-700 bg-ink-800 mt-16">
+          {/* Newsletter section */}
+          <div className="max-w-6xl mx-auto px-6 py-8 border-b border-ink-700">
+            <div className="flex flex-col md:flex-row items-start md:items-center gap-4 md:gap-8">
+              <div className="md:flex-1">
+                <p className="text-sm font-bold uppercase tracking-wider text-brand-500 mb-1">
+                  Newsletter
+                </p>
+                <p className="text-ink-200 text-sm">
+                  Un email al mes con lo mejor del blog. Cero spam.{" "}
+                  <Link href="/newsletter" className="text-brand-400 hover:underline">
+                    Más info
+                  </Link>
+                  .
+                </p>
+              </div>
+              <div className="w-full md:w-auto md:min-w-[24rem]">
+                <NewsletterForm variant="compact" />
+              </div>
+            </div>
+          </div>
+
           <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-ink-400 flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="flex flex-col md:flex-row items-center gap-2 md:gap-4 text-center md:text-left">
               <span>© {new Date().getFullYear()} Herramientas Industriales — Paraguay</span>
