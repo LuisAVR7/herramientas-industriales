@@ -65,6 +65,7 @@ export default function NewsletterForm({ variant = "compact" }: NewsletterFormPr
           placeholder="tu@email.com"
           disabled={state === "loading"}
           aria-label="Email para suscripción al newsletter"
+          suppressHydrationWarning
           className={
             isCompact
               ? "flex-1 px-3 py-2 rounded-md bg-ink-700 border border-ink-600 text-ink-50 text-sm placeholder-ink-400 focus:outline-none focus:border-brand-500 disabled:opacity-50"
