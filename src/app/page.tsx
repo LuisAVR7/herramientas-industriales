@@ -1,13 +1,14 @@
 import Link from "next/link";
+import Image from "next/image";
 import type { ReactNode } from "react";
-import { getAllArticles, getAllCategories } from "@/lib/articles";
 
 type Category = {
   kicker: string;
   title: string;
   description: string;
+  imagen?: string; // thumbnail hero del pilar de la categoría
+  href?: string; // link al pilar de la categoría
   icon?: ReactNode; // opcional: para futuro (Lucide, Heroicons o SVG propio)
-  href?: string; // opcional: para futuro (hacer la tarjeta linkeable a la categoría)
 };
 
 const categories: Category[] = [
@@ -16,60 +17,52 @@ const categories: Category[] = [
     title: "Herramientas antichispa",
     description:
       "Llaves, martillos y herramientas de bronce-berilio o aleación de cobre para ambientes con atmósferas explosivas (ATEX). Comparativas de Bahco, Ampco y otras marcas presentes en Paraguay.",
+    imagen: "/images/industria-antichispa-tanques.png",
+    href: "/blog/que-son-las-herramientas-antichispa",
   },
   {
     kicker: "Industria Verde",
     title: "Herramientas forestales",
     description:
       "Motosierras, hachas, herramientas de tala y limpieza para uso profesional. Comparativas de equipamiento europeo y estándar internacional aplicado al mercado paraguayo.",
+    imagen: "/images/forestal-serrucho-bahco-poda.png",
+    href: "/blog/herramientas-forestales-profesionales-guia-introductoria",
   },
   {
     kicker: "Llaves dinamométricas",
     title: "Torque preciso",
     description:
       "Llaves de clic, digitales, eléctricas y multiplicadores de torque para aplicaciones críticas de industria pesada, automotriz y estructural. Bahco, Norbar y otras marcas del segmento.",
+    imagen: "/images/torquimetro-1.png",
+    href: "/blog/llaves-dinamometricas-guia-introductoria",
   },
   {
     kicker: "Trabajo eléctrico · IEC 60900",
     title: "Herramientas aisladas",
     description:
       "Destornilladores, alicates y llaves certificadas IEC 60900 y VDE para trabajo con tensión. Marco ANDE, sectores paraguayos, autenticidad VDE y herramientas para movilidad eléctrica.",
+    imagen: "/images/herramientas-aisladas-pilar.png",
+    href: "/blog/herramientas-aisladas-guia-introductoria",
   },
   {
     kicker: "Sanitario · Farma · Alimenticio",
     title: "Herramientas inoxidables",
     description:
       "Acero inoxidable AISI 304, 316 y 316L para industria farmacéutica, alimenticia y laboratorios. Cumplimiento DINAVISA, SENACSA e INAN, terminación superficial y estándares ASME BPE.",
+    imagen: "/images/herramientas-inoxidables-pilar.jpg",
+    href: "/blog/herramientas-inoxidables-guia-introductoria",
   },
   {
     kicker: "Electrónica · ESD · SMD",
     title: "Herramientas de precisión",
     description:
       "Alicates finos, pinzas técnicas (tweezers), cortantes y destornilladores milimétricos con versiones ESD-safe. Aplicaciones en electrónica, maquila, joyería y laboratorio.",
+    imagen: "/images/herramientas-de-precision-pilar.png",
+    href: "/blog/herramientas-de-precision-guia-introductoria",
   },
 ];
 
-function formatMonthYear(fecha: string): string {
-  // fecha viene como "2026-08-15" → devolvemos "agosto 2026"
-  const [year, month] = fecha.split("-");
-  const meses = [
-    "enero", "febrero", "marzo", "abril", "mayo", "junio",
-    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
-  ];
-  const monthIndex = parseInt(month, 10) - 1;
-  return `${meses[monthIndex]} ${year}`;
-}
-
 export default function Home() {
-  const articles = getAllArticles();
-  const totalArticles = articles.length;
-  const totalCategories = getAllCategories().length;
-  // Última actualización = fecha más reciente entre todos los artículos.
-  const lastUpdate = [...articles].sort((a, b) =>
-    b.fecha.localeCompare(a.fecha)
-  )[0]?.fecha;
-  const lastUpdateLabel = lastUpdate ? formatMonthYear(lastUpdate) : "";
-
   return (
     <div>
       {/* Hero */}
@@ -107,46 +100,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Banner de credibilidad */}
-      <section className="border-b border-ink-800 bg-ink-900/50">
-        <div className="max-w-6xl mx-auto px-6 py-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-brand-500">
-                {totalArticles}
-              </div>
-              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
-                Artículos técnicos
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-brand-500">
-                {totalCategories}
-              </div>
-              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
-                Categorías activas
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-brand-500">
-                PY
-              </div>
-              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
-                Foco geográfico
-              </div>
-            </div>
-            <div>
-              <div className="text-3xl md:text-4xl font-bold text-brand-500 capitalize">
-                {lastUpdateLabel}
-              </div>
-              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
-                Última actualización
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* Categorías */}
       <section className="max-w-6xl mx-auto px-6 py-20">
         <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-ink-50">
@@ -155,29 +108,58 @@ export default function Home() {
         <p className="mt-2 text-ink-400">Los rubros que cubre el blog.</p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {categories.map((category) => (
-            <article
-              key={category.title}
-              className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group"
-            >
-              <div className="flex items-center gap-3 mb-4">
-                {category.icon ? (
-                  <span className="text-brand-500">{category.icon}</span>
-                ) : (
-                  <div className="w-2 h-2 rounded-full bg-brand-500" />
+          {categories.map((category) => {
+            const cardContent = (
+              <>
+                {category.imagen && (
+                  <div className="relative w-full aspect-video overflow-hidden bg-ink-800">
+                    <Image
+                      src={category.imagen}
+                      alt={category.title}
+                      fill
+                      sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                      className="object-cover group-hover:scale-105 transition-transform duration-500"
+                    />
+                  </div>
                 )}
-                <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                  {category.kicker}
-                </span>
-              </div>
-              <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-                {category.title}
-              </h3>
-              <p className="text-ink-300 text-sm leading-relaxed">
-                {category.description}
-              </p>
-            </article>
-          ))}
+                <div className="p-6">
+                  <div className="flex items-center gap-3 mb-3">
+                    {category.icon ? (
+                      <span className="text-brand-500">{category.icon}</span>
+                    ) : (
+                      <div className="w-2 h-2 rounded-full bg-brand-500" />
+                    )}
+                    <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
+                      {category.kicker}
+                    </span>
+                  </div>
+                  <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
+                    {category.title}
+                  </h3>
+                  <p className="text-ink-300 text-sm leading-relaxed">
+                    {category.description}
+                  </p>
+                </div>
+              </>
+            );
+
+            const cardClassName =
+              "block border border-ink-700 rounded-sm overflow-hidden hover:border-brand-500 transition group";
+
+            return category.href ? (
+              <Link
+                key={category.title}
+                href={category.href}
+                className={cardClassName}
+              >
+                {cardContent}
+              </Link>
+            ) : (
+              <article key={category.title} className={cardClassName}>
+                {cardContent}
+              </article>
+            );
+          })}
         </div>
       </section>
     </div>
