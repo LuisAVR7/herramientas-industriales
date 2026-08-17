@@ -3,11 +3,22 @@ import Link from "next/link";
 import Image from "next/image";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import NewsletterForm from "@/components/NewsletterForm";
+import SearchBar from "@/components/SearchBar";
+import { getAllArticles } from "@/lib/articles";
 import "./globals.css";
 
 const SITE_URL = "https://www.herramientas-industriales.com.py";
 const ADSENSE_CLIENT_ID = "ca-pub-6682406524868253";
 const GA_MEASUREMENT_ID = "G-YV1BM7Y6Y3";
+
+// Lista mínima de artículos para el buscador (sin content pesado).
+// Se evalúa una vez al bootear el módulo.
+const searchArticles = getAllArticles().map((a) => ({
+  title: a.title,
+  slug: a.slug,
+  categoria: a.categoria,
+  descripcion: a.descripcion,
+}));
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -93,7 +104,7 @@ export default function RootLayout({
         />
 
         <header className="border-b border-ink-700 bg-ink-800/80 backdrop-blur sticky top-0 z-50">
-          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+          <div className="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between gap-4">
             <Link
               href="/"
               className="flex items-center gap-3 font-bold uppercase tracking-wider"
@@ -105,20 +116,23 @@ export default function RootLayout({
                 <span className="text-ink-50">Industriales</span>
               </span>
             </Link>
-            <nav className="hidden md:flex items-center gap-8 text-sm text-ink-200">
-              <Link href="/blog" className="hover:text-brand-400 transition">
-                Artículos
-              </Link>
-              <Link href="/categorias" className="hover:text-brand-400 transition">
-                Categorías
-              </Link>
-              <Link href="/sobre-este-blog" className="hover:text-brand-400 transition">
-                Sobre este blog
-              </Link>
-              <Link href="/contacto" className="hover:text-brand-400 transition">
-                Contacto
-              </Link>
-            </nav>
+            <div className="flex items-center gap-4 md:gap-6">
+              <SearchBar articles={searchArticles} />
+              <nav className="hidden md:flex items-center gap-8 text-sm text-ink-200">
+                <Link href="/blog" className="hover:text-brand-400 transition">
+                  Artículos
+                </Link>
+                <Link href="/categorias" className="hover:text-brand-400 transition">
+                  Categorías
+                </Link>
+                <Link href="/sobre-este-blog" className="hover:text-brand-400 transition">
+                  Sobre este blog
+                </Link>
+                <Link href="/contacto" className="hover:text-brand-400 transition">
+                  Contacto
+                </Link>
+              </nav>
+            </div>
           </div>
         </header>
 
