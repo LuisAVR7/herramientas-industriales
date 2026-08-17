@@ -9,6 +9,8 @@ import ShareButtons from "./ShareButtons";
 import RelatedArticles from "./RelatedArticles";
 
 const SITE_URL = "https://www.herramientas-industriales.com.py";
+const AUTHOR_NAME = "Luis Velázquez";
+const AUTHOR_URL = `${SITE_URL}/sobre-este-blog`;
 
 type Props = {
   params: Promise<{ slug: string }>;
@@ -28,12 +30,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: article.title,
     description: article.descripcion,
+    authors: [{ name: AUTHOR_NAME, url: AUTHOR_URL }],
     openGraph: {
       title: article.title,
       description: article.descripcion,
       url,
       type: "article",
       publishedTime: article.fecha,
+      authors: [AUTHOR_NAME],
       images: article.imagen
         ? [
             {
@@ -106,6 +110,18 @@ const mdxComponents: MDXComponents = {
   ),
 };
 
+function formatFullDate(fecha: string): string {
+  // "2026-08-15" → "15 de agosto de 2026"
+  const [year, month, day] = fecha.split("-");
+  const meses = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+  ];
+  const monthIndex = parseInt(month, 10) - 1;
+  const dayInt = parseInt(day, 10);
+  return `${dayInt} de ${meses[monthIndex]} de ${year}`;
+}
+
 export default async function ArticlePage({ params }: Props) {
   const { slug } = await params;
   const article = getArticleBySlug(slug);
@@ -115,6 +131,7 @@ export default async function ArticlePage({ params }: Props) {
   const categorySlug = slugify(article.categoria);
 
   // Schema.org: Article + BreadcrumbList por artículo.
+  // Author como Person (Luis Velázquez), Publisher como Organization.
   const articleSchema = {
     "@context": "https://schema.org",
     "@type": "Article",
@@ -129,9 +146,9 @@ export default async function ArticlePage({ params }: Props) {
       "@id": articleUrl,
     },
     author: {
-      "@type": "Organization",
-      name: "Herramientas Industriales",
-      url: `${SITE_URL}/`,
+      "@type": "Person",
+      name: AUTHOR_NAME,
+      url: AUTHOR_URL,
     },
     publisher: {
       "@type": "Organization",
@@ -230,6 +247,28 @@ export default async function ArticlePage({ params }: Props) {
 
       <div className="border-t border-ink-800 pt-8">
         <MDXRemote source={article.content} components={mdxComponents} />
+      </div>
+
+      {/* Firma del autor — señal E-E-A-T al pie del contenido */}
+      <div className="border-t border-ink-800 mt-16 pt-8">
+        <p className="text-sm text-ink-300">
+          <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase mr-2">
+            Escrito por
+          </span>
+          <span className="text-ink-50 font-semibold">{AUTHOR_NAME}</span>
+          <span className="text-ink-500 mx-2">·</span>
+          <span className="text-ink-400">
+            Publicado el {formatFullDate(article.fecha)}
+          </span>
+        </p>
+        <p className="mt-3 text-sm">
+          <Link
+            href="/sobre-este-blog"
+            className="text-brand-400 hover:underline"
+          >
+            Sobre el autor y la metodología del blog →
+          </Link>
+        </p>
       </div>
 
       <RelatedArticles currentArticle={article} />
