@@ -83,20 +83,32 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero con imagen de fondo */}
+      {/* Hero con imagen de fondo — art direction: distinta imagen para desktop y mobile */}
       <section className="relative border-b border-ink-800 overflow-hidden">
-        {/* Imagen de fondo */}
+        {/* Imágenes de fondo */}
         <div className="absolute inset-0">
+          {/* Imagen mobile (< 768px): vertical, zona negra superior para el texto */}
+          <Image
+            src="/images/taller-industrial-portada-mobile.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover block md:hidden"
+          />
+          {/* Imagen desktop (≥ 768px): horizontal, zona limpia izquierda para el texto */}
           <Image
             src="/images/taller-industrial-portada.jpg"
             alt=""
             fill
             priority
             sizes="100vw"
-            className="object-cover"
+            className="object-cover hidden md:block"
           />
-          {/* Overlay para asegurar legibilidad del texto: más oscuro a la izquierda (donde está el texto), más transparente a la derecha (donde se ven las herramientas). */}
-          <div className="absolute inset-0 bg-gradient-to-r from-ink-900/95 via-ink-900/80 to-ink-900/40" />
+          {/* Overlay para asegurar legibilidad del texto:
+              - En mobile: gradiente vertical (arriba oscuro → abajo más transparente)
+              - En desktop: gradiente horizontal (izquierda oscura → derecha más transparente) */}
+          <div className="absolute inset-0 bg-gradient-to-b md:bg-gradient-to-r from-ink-900/95 via-ink-900/80 to-ink-900/40" />
         </div>
 
         {/* Contenido */}
