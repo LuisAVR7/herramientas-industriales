@@ -1,5 +1,6 @@
 import Link from "next/link";
 import type { ReactNode } from "react";
+import { getAllArticles, getAllCategories } from "@/lib/articles";
 
 type Category = {
   kicker: string;
@@ -48,7 +49,27 @@ const categories: Category[] = [
   },
 ];
 
+function formatMonthYear(fecha: string): string {
+  // fecha viene como "2026-08-15" → devolvemos "agosto 2026"
+  const [year, month] = fecha.split("-");
+  const meses = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+  ];
+  const monthIndex = parseInt(month, 10) - 1;
+  return `${meses[monthIndex]} ${year}`;
+}
+
 export default function Home() {
+  const articles = getAllArticles();
+  const totalArticles = articles.length;
+  const totalCategories = getAllCategories().length;
+  // Última actualización = fecha más reciente entre todos los artículos.
+  const lastUpdate = [...articles].sort((a, b) =>
+    b.fecha.localeCompare(a.fecha)
+  )[0]?.fecha;
+  const lastUpdateLabel = lastUpdate ? formatMonthYear(lastUpdate) : "";
+
   return (
     <div>
       {/* Hero */}
@@ -81,6 +102,46 @@ export default function Home() {
               >
                 Sobre este blog
               </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Banner de credibilidad */}
+      <section className="border-b border-ink-800 bg-ink-900/50">
+        <div className="max-w-6xl mx-auto px-6 py-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-brand-500">
+                {totalArticles}
+              </div>
+              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
+                Artículos técnicos
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-brand-500">
+                {totalCategories}
+              </div>
+              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
+                Categorías activas
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-brand-500">
+                PY
+              </div>
+              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
+                Foco geográfico
+              </div>
+            </div>
+            <div>
+              <div className="text-3xl md:text-4xl font-bold text-brand-500 capitalize">
+                {lastUpdateLabel}
+              </div>
+              <div className="mt-1 text-xs md:text-sm text-ink-400 uppercase tracking-wider">
+                Última actualización
+              </div>
             </div>
           </div>
         </div>
