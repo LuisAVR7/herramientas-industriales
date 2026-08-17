@@ -83,9 +83,24 @@ export default function Home() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="border-b border-ink-800">
-        <div className="max-w-6xl mx-auto px-6 py-24 md:py-32">
+      {/* Hero con imagen de fondo */}
+      <section className="relative border-b border-ink-800 overflow-hidden">
+        {/* Imagen de fondo */}
+        <div className="absolute inset-0">
+          <Image
+            src="/images/taller-industrial-portada.jpg"
+            alt=""
+            fill
+            priority
+            sizes="100vw"
+            className="object-cover"
+          />
+          {/* Overlay para asegurar legibilidad del texto: más oscuro a la izquierda (donde está el texto), más transparente a la derecha (donde se ven las herramientas). */}
+          <div className="absolute inset-0 bg-gradient-to-r from-ink-900/95 via-ink-900/80 to-ink-900/40" />
+        </div>
+
+        {/* Contenido */}
+        <div className="relative max-w-6xl mx-auto px-6 py-24 md:py-32">
           <div className="max-w-3xl">
             <span className="inline-block text-xs font-semibold tracking-widest text-brand-500 uppercase mb-4">
               Blog técnico · Paraguay
@@ -109,7 +124,7 @@ export default function Home() {
               </Link>
               <Link
                 href="/sobre-este-blog"
-                className="border border-ink-600 hover:border-brand-500 text-ink-100 px-6 py-3 rounded-sm transition"
+                className="border border-ink-600 hover:border-brand-500 text-ink-100 bg-ink-900/50 backdrop-blur-sm px-6 py-3 rounded-sm transition"
               >
                 Sobre este blog
               </Link>
