@@ -1,4 +1,52 @@
 import Link from "next/link";
+import type { ReactNode } from "react";
+
+type Category = {
+  kicker: string;
+  title: string;
+  description: string;
+  icon?: ReactNode; // opcional: para futuro (Lucide, Heroicons o SVG propio)
+  href?: string; // opcional: para futuro (hacer la tarjeta linkeable a la categoría)
+};
+
+const categories: Category[] = [
+  {
+    kicker: "ATEX · Antichispa",
+    title: "Herramientas antichispa",
+    description:
+      "Llaves, martillos y herramientas de bronce-berilio o aleación de cobre para ambientes con atmósferas explosivas (ATEX). Comparativas de Bahco, Ampco y otras marcas presentes en Paraguay.",
+  },
+  {
+    kicker: "Industria Verde",
+    title: "Herramientas forestales",
+    description:
+      "Motosierras, hachas, herramientas de tala y limpieza para uso profesional. Comparativas de equipamiento europeo y estándar internacional aplicado al mercado paraguayo.",
+  },
+  {
+    kicker: "Llaves dinamométricas",
+    title: "Torque preciso",
+    description:
+      "Llaves de clic, digitales, eléctricas y multiplicadores de torque para aplicaciones críticas de industria pesada, automotriz y estructural. Bahco, Norbar y otras marcas del segmento.",
+  },
+  {
+    kicker: "Trabajo eléctrico · IEC 60900",
+    title: "Herramientas aisladas",
+    description:
+      "Destornilladores, alicates y llaves certificadas IEC 60900 y VDE para trabajo con tensión. Marco ANDE, sectores paraguayos, autenticidad VDE y herramientas para movilidad eléctrica.",
+  },
+  {
+    kicker: "Sanitario · Farma · Alimenticio",
+    title: "Herramientas inoxidables",
+    description:
+      "Acero inoxidable AISI 304, 316 y 316L para industria farmacéutica, alimenticia y laboratorios. Cumplimiento DINAVISA, SENACSA e INAN, terminación superficial y estándares ASME BPE.",
+  },
+  {
+    kicker: "Electrónica · ESD · SMD",
+    title: "Herramientas de precisión",
+    description:
+      "Alicates finos, pinzas técnicas (tweezers), cortantes y destornilladores milimétricos con versiones ESD-safe. Aplicaciones en electrónica, maquila, joyería y laboratorio.",
+  },
+];
 
 export default function Home() {
   return (
@@ -46,107 +94,29 @@ export default function Home() {
         <p className="mt-2 text-ink-400">Los rubros que cubre el blog.</p>
 
         <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                ATEX · Antichispa
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              Herramientas antichispa
-            </h3>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              Llaves, martillos y herramientas de bronce-berilio o aleación de
-              cobre para ambientes con atmósferas explosivas (ATEX). Comparativas
-              de Bahco, Ampco y otras marcas presentes en Paraguay.
-            </p>
-          </article>
-
-          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                Industria Verde
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              Herramientas forestales
-            </h3>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              Motosierras, hachas, herramientas de tala y limpieza para uso
-              profesional. Comparativas de equipamiento europeo y estándar
-              internacional aplicado al mercado paraguayo.
-            </p>
-          </article>
-
-          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                Llaves dinamométricas
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              Torque preciso
-            </h3>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              Llaves de clic, digitales, eléctricas y multiplicadores de torque
-              para aplicaciones críticas de industria pesada, automotriz y
-              estructural. Bahco, Norbar y otras marcas del segmento.
-            </p>
-          </article>
-
-          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                Trabajo eléctrico · IEC 60900
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              Herramientas aisladas
-            </h3>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              Destornilladores, alicates y llaves certificadas IEC 60900 y VDE
-              para trabajo con tensión. Marco ANDE, sectores paraguayos,
-              autenticidad VDE y herramientas para movilidad eléctrica.
-            </p>
-          </article>
-
-          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                Sanitario · Farma · Alimenticio
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              Herramientas inoxidables
-            </h3>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              Acero inoxidable AISI 304, 316 y 316L para industria farmacéutica,
-              alimenticia y laboratorios. Cumplimiento DINAVISA, SENACSA e INAN,
-              terminación superficial y estándares ASME BPE.
-            </p>
-          </article>
-
-          <article className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group">
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-2 h-2 rounded-full bg-brand-500" />
-              <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
-                Electrónica · ESD · SMD
-              </span>
-            </div>
-            <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
-              Herramientas de precisión
-            </h3>
-            <p className="text-ink-300 text-sm leading-relaxed">
-              Alicates finos, pinzas técnicas (tweezers), cortantes y
-              destornilladores milimétricos con versiones ESD-safe.
-              Aplicaciones en electrónica, maquila, joyería y laboratorio.
-            </p>
-          </article>
+          {categories.map((category) => (
+            <article
+              key={category.title}
+              className="border border-ink-700 rounded-sm p-8 hover:border-brand-500 transition group"
+            >
+              <div className="flex items-center gap-3 mb-4">
+                {category.icon ? (
+                  <span className="text-brand-500">{category.icon}</span>
+                ) : (
+                  <div className="w-2 h-2 rounded-full bg-brand-500" />
+                )}
+                <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
+                  {category.kicker}
+                </span>
+              </div>
+              <h3 className="text-xl font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition">
+                {category.title}
+              </h3>
+              <p className="text-ink-300 text-sm leading-relaxed">
+                {category.description}
+              </p>
+            </article>
+          ))}
         </div>
       </section>
     </div>
