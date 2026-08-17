@@ -1,6 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import type { ReactNode } from "react";
+import { getAllArticles } from "@/lib/articles";
 
 type Category = {
   kicker: string;
@@ -62,7 +63,24 @@ const categories: Category[] = [
   },
 ];
 
+function formatFullDate(fecha: string): string {
+  // "2026-08-15" → "15 de agosto de 2026"
+  const [year, month, day] = fecha.split("-");
+  const meses = [
+    "enero", "febrero", "marzo", "abril", "mayo", "junio",
+    "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre",
+  ];
+  const monthIndex = parseInt(month, 10) - 1;
+  const dayInt = parseInt(day, 10);
+  return `${dayInt} de ${meses[monthIndex]} de ${year}`;
+}
+
 export default function Home() {
+  // Últimos 6 artículos ordenados por fecha (más recientes primero).
+  const latestArticles = [...getAllArticles()]
+    .sort((a, b) => b.fecha.localeCompare(a.fecha))
+    .slice(0, 6);
+
   return (
     <div>
       {/* Hero */}
@@ -160,6 +178,63 @@ export default function Home() {
               </article>
             );
           })}
+        </div>
+      </section>
+
+      {/* Últimos artículos */}
+      <section className="max-w-6xl mx-auto px-6 py-20 border-t border-ink-800">
+        <div className="flex items-end justify-between flex-wrap gap-4 mb-2">
+          <div>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-ink-50">
+              Últimos artículos
+            </h2>
+            <p className="mt-2 text-ink-400">Publicaciones más recientes del blog.</p>
+          </div>
+          <Link
+            href="/blog"
+            className="text-sm font-semibold text-brand-500 hover:text-brand-400 transition"
+          >
+            Ver todos →
+          </Link>
+        </div>
+
+        <div className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {latestArticles.map((article) => (
+            <Link
+              key={article.slug}
+              href={`/blog/${article.slug}`}
+              className="block border border-ink-700 rounded-sm overflow-hidden hover:border-brand-500 transition group"
+            >
+              {article.imagen && (
+                <div className="relative w-full aspect-video overflow-hidden bg-ink-800">
+                  <Image
+                    src={article.imagen}
+                    alt={article.imagenAlt || article.title}
+                    fill
+                    sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+              )}
+              <div className="p-6">
+                <div className="flex items-center gap-3 mb-3">
+                  <div className="w-2 h-2 rounded-full bg-brand-500" />
+                  <span className="text-xs font-semibold tracking-widest text-brand-500 uppercase">
+                    {article.categoria}
+                  </span>
+                </div>
+                <h3 className="text-lg font-semibold mb-2 text-ink-50 group-hover:text-brand-500 transition leading-snug">
+                  {article.title}
+                </h3>
+                <p className="text-ink-300 text-sm leading-relaxed line-clamp-3 mb-4">
+                  {article.descripcion}
+                </p>
+                <p className="text-xs text-ink-500">
+                  {formatFullDate(article.fecha)}
+                </p>
+              </div>
+            </Link>
+          ))}
         </div>
       </section>
     </div>
