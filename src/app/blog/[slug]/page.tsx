@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import Link from "next/link";
 import Image from "next/image";
 import type { MDXComponents } from "mdx/types";
@@ -105,6 +106,35 @@ const mdxComponents: MDXComponents = {
   blockquote: (props) => (
     <blockquote
       className="border-l-4 border-brand-500 pl-4 italic text-ink-300 my-6"
+      {...props}
+    />
+  ),
+  table: (props) => (
+    <div className="overflow-x-auto my-6">
+      <table
+        className="w-full border-collapse border border-ink-800 text-sm"
+        {...props}
+      />
+    </div>
+  ),
+  thead: (props) => (
+    <thead className="bg-ink-800" {...props} />
+  ),
+  tbody: (props) => (
+    <tbody {...props} />
+  ),
+  tr: (props) => (
+    <tr className="even:bg-ink-900/40" {...props} />
+  ),
+  th: (props) => (
+    <th
+      className="border border-ink-700 px-3 py-2 text-left text-ink-50 font-semibold"
+      {...props}
+    />
+  ),
+  td: (props) => (
+    <td
+      className="border border-ink-800 px-3 py-2 text-ink-200 align-top"
       {...props}
     />
   ),
@@ -246,7 +276,15 @@ export default async function ArticlePage({ params }: Props) {
       )}
 
       <div className="border-t border-ink-800 pt-8">
-        <MDXRemote source={article.content} components={mdxComponents} />
+        <MDXRemote
+          source={article.content}
+          components={mdxComponents}
+          options={{
+            mdxOptions: {
+              remarkPlugins: [remarkGfm],
+            },
+          }}
+        />
       </div>
 
       {/* Firma del autor — señal E-E-A-T al pie del contenido */}
