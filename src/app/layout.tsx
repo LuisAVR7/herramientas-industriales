@@ -181,17 +181,17 @@ export default function RootLayout({
             <div className="flex items-center gap-3">
               <span>Desarrollado por</span>
               <a
-                href="https://eleve11.com"
+                href="https://once-eleven.com"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:brightness-95 transition"
-                aria-label="Eleven — Creativity and management"
+                aria-label="Once Eleven"
               >
                 <Image
-                  src="/eleven-logo.webp"
-                  alt="Eleven — Creativity and management"
-                  width={120}
-                  height={80}
+                  src="/once-eleven-logo-sin-eslogan-negativo.svg"
+                  alt="Once Eleven"
+                  width={140}
+                  height={40}
                   className="rounded-sm"
                   priority
                 />
