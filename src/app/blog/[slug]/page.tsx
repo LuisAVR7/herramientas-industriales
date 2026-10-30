@@ -27,14 +27,17 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!article) return {};
 
   const url = `${SITE_URL}/blog/${article.slug}`;
+  // seoTitle va sin el sufijo "| Herramientas Industriales" para no pasar el largo que muestra Google.
+  const metaTitle = article.seoTitle || article.title;
+  const metaDescription = article.seoDescripcion || article.descripcion;
 
   return {
-    title: article.title,
-    description: article.descripcion,
+    title: article.seoTitle ? { absolute: article.seoTitle } : article.title,
+    description: metaDescription,
     authors: [{ name: AUTHOR_NAME, url: AUTHOR_URL }],
     openGraph: {
-      title: article.title,
-      description: article.descripcion,
+      title: metaTitle,
+      description: metaDescription,
       url,
       type: "article",
       publishedTime: article.fecha,
@@ -52,8 +55,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
     twitter: {
       card: "summary_large_image",
-      title: article.title,
-      description: article.descripcion,
+      title: metaTitle,
+      description: metaDescription,
       images: article.imagen ? [`${SITE_URL}${article.imagen}`] : [],
     },
   };

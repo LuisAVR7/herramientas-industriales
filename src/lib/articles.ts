@@ -9,6 +9,9 @@ export type ArticleFrontmatter = {
   tipo?: "pilar" | "satelite";
   imagen?: string;
   imagenAlt?: string;
+  // Solo para Google (<title> y meta description). Si faltan, se usan title/descripcion.
+  seoTitle?: string;
+  seoDescripcion?: string;
 };
 
 export type Article = ArticleFrontmatter & {
