@@ -40,3 +40,6 @@ yarn-error.log*
 *.tsbuildinfo
 next-env.d.ts
 src/lib/articles-generated.json
+
+# Contextos y documentos internos (viven fuera del proyecto, REGLA v30)
+*.docx
